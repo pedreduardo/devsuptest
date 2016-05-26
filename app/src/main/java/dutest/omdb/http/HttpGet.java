@@ -6,10 +6,9 @@ import android.os.AsyncTask;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 
 import dutest.omdb.constant.Constant;
-import dutest.omdb.util.HttpUtil;
+import dutest.omdb.util.http.HttpUtil;
 
 /**
  * Created by Pedreduardo on 24/05/2016.

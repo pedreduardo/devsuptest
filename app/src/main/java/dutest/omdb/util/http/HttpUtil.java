@@ -1,4 +1,4 @@
-package dutest.omdb.util;
+package dutest.omdb.util.http;
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;

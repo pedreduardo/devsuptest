@@ -8,6 +8,41 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="text">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 
+    <style name="labelLittle" parent="text">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+    <style name="textLittle" parent="text">
+        <item name="android:textColor">@color/colorTextSecondary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="textMinimum" parent="text">
+        <item name="android:textColor">@color/colorTextSecondary</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="textMinimumColor" parent="textMinimum">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="divider">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/colorDivider</item>
+        <item name="android:layout_marginTop">14dp</item>
+        <item name="android:layout_marginBottom">14dp</item>
+    </style>
 
 </resources>
