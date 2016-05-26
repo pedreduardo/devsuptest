@@ -4,4 +4,6 @@
     <string name="GoBuyMovieStuff">É fã desse filme? Vá às compras!</string>
     <string name="searchHint">Nome do filme...</string>
     <string name="Search">Buscar</string>
+    <string name="TypeAMovie">Nome do filme</string>
+    <string name="InsertMovie">Hey! Você se esqueceu de digitar o filme! (:</string>
 </resources>
