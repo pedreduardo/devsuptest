@@ -12,6 +12,8 @@ import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import dutest.omdb.constant.Constant;
+
 /**
  * Created by Pedreduardo on 24/05/2016.
  */
@@ -63,5 +65,10 @@ public class HttpUtil{
         reader.close();
 
         return response;
+    }
+
+    public static String standardizeUrlTerm(String term){
+        term = term.replace(' ', '+');
+        return Constant.ENDPOINT_URL + term + Constant.EP_DEFAULT_PARAMS;
     }
 }

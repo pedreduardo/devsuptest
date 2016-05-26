@@ -19,7 +19,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import dutest.omdb.R;
+import dutest.omdb.constant.Constant;
+import dutest.omdb.model.json.Movie;
 import dutest.omdb.util.image.DownloadImageTask;
 
 /**
@@ -27,12 +31,22 @@ import dutest.omdb.util.image.DownloadImageTask;
  */
 public class MovieProfile extends AppCompatActivity{
 
-    Context context;
-    AppBarLayout appBar;
-    CollapsingToolbarLayout collapsing;
-    ImageView imageView;
-    Toolbar toolbar;
-    ImageView posterImage;
+    private Movie movie;
+    private Context context;
+    private AppBarLayout appBar;
+    private CollapsingToolbarLayout collapsing;
+    private Toolbar toolbar;
+
+    private ImageView bannerImage;
+    private ImageView posterImage;
+    private TextView year;
+    private TextView rated;
+    private TextView genre;
+    private TextView plot;
+    private TextView imdbRating;
+    private TextView imdbVotes;
+    private TextView metaScore;
+    private TextView awards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,26 +55,47 @@ public class MovieProfile extends AppCompatActivity{
         this.context = getApplicationContext();
 
         initComponents();
+        getExtras();
+        populateProfile();
     }
 
     private void initComponents() {
         this.appBar = (AppBarLayout) findViewById(R.id.appBar);
         this.collapsing = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
-        this.imageView = (ImageView) findViewById(R.id.movieImage);
         this.toolbar = (Toolbar) findViewById(R.id.toolbar);
+        this.bannerImage = (ImageView) findViewById(R.id.bannerImage);
         this.posterImage = (ImageView) findViewById(R.id.posterImage);
+        this.year = (TextView) findViewById(R.id.year);
+        this.rated = (TextView) findViewById(R.id.rated);
+        this.genre = (TextView) findViewById(R.id.genre);
+        this.plot = (TextView) findViewById(R.id.plot);
+        this.imdbRating = (TextView) findViewById(R.id.imdbRating);
+        this.imdbVotes = (TextView) findViewById(R.id.imdbVotes);
+        this.metaScore = (TextView) findViewById(R.id.metaScore);
+        this.awards = (TextView) findViewById(R.id.awards);
 
         setSupportActionBar(this.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        this.collapsing.setTitle("Harry Potter and the Deathly Hallows");
-        this.collapsing.setCollapsedTitleTextColor(ContextCompat.getColor(this.context, R.color.white));
-        this.collapsing.setExpandedTitleColor(ContextCompat.getColor(this.context, R.color.white));
+    }
 
-        new DownloadImageTask(this.imageView).execute("http://ia.media-imdb.com/images/M/MV5BMTY2MTk3MDQ1N15BMl5BanBnXkFtZTcwMzI4NzA2NQ@@._V1_SX300.jpg");
-        new DownloadImageTask(this.posterImage).execute("http://ia.media-imdb.com/images/M/MV5BMTY2MTk3MDQ1N15BMl5BanBnXkFtZTcwMzI4NzA2NQ@@._V1_SX300.jpg");
+    private void getExtras() {
+            this.movie = (Movie) getIntent().getSerializableExtra("movie");
+    }
 
+    private void populateProfile() {
 
+        this.collapsing.setTitle(this.movie.getTitle());
+        new DownloadImageTask(this.bannerImage).execute(this.movie.getPoster());
+        new DownloadImageTask(this.posterImage).execute(this.movie.getPoster());
+        this.year.setText(this.movie.getYear());
+        this.rated.setText(this.movie.getRated());
+        this.genre.setText(this.movie.getGenre().replace(","," |"));
+        this.plot.setText(this.movie.getPlot());
+        this.imdbRating.setText(this.movie.getImdbRating() + "/10");
+        this.imdbVotes.setText(this.movie.getImdbVotes() + " "  + getResources().getString(R.string.votes));
+        this.metaScore.setText(this.movie.getMetascore());
+        this.awards.setText(this.movie.getAwards());
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

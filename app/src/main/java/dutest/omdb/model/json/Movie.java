@@ -1,11 +1,13 @@
 package dutest.omdb.model.json;
 
+import java.io.Serializable;
+
 /**
  * Created by Pedreduardo on 26/05/2016.
  */
-public class Movie {
+public class Movie implements Serializable {
 
-    String response;
+    String Response;
     String Title;
     String Plot;
     String Poster;
@@ -19,10 +21,10 @@ public class Movie {
 
 
     public String getResponse() {
-        return response;
+        return Response;
     }
     public void setResponse(String response) {
-        this.response = response;
+        this.Response = response;
     }
     public String getTitle() {
         return Title;

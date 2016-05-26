@@ -6,4 +6,7 @@
     <string name="Search">Buscar</string>
     <string name="TypeAMovie">Nome do filme</string>
     <string name="InsertMovie">Hey! Você se esqueceu de digitar o filme! (:</string>
+    <string name="loadingMovieData">Carregando dados do filme...</string>
+    <string name="movieNotFound">Oops! Filme não encontrado. :(</string>
+    <string name="votes">votos</string>
 </resources>

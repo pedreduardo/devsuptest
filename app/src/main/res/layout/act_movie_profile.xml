@@ -18,10 +18,11 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:background="@color/colorPrimary"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/colorPrimary">
+            app:contentScrim="@color/colorPrimary"
+            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Title">
 
             <ImageView
-                android:id="@+id/movieImage"
+                android:id="@+id/bannerImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -143,7 +144,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/posterArea"
+                    android:layout_marginLeft="40dp"
                     android:layout_marginRight="10dp">
 
                     <LinearLayout
@@ -166,10 +168,12 @@
                             android:layout_marginLeft="4dp">
 
                             <TextView
+                                android:id="@+id/imdbRating"
                                 style="@style/textMinimumColor"
                                 android:text="8.0/10"
                                 android:textSize="14sp"/>
                             <TextView
+                                android:id="@+id/imdbVotes"
                                 style="@style/textLittle"
                                 android:text="532,231 votes"/>
                         </LinearLayout>
@@ -190,6 +194,7 @@
                             android:layout_marginLeft="6dp">
 
                             <TextView
+                                android:id="@+id/metaScore"
                                 style="@style/textMinimumColor"
                                 android:text="95"
                                 android:textSize="14sp"
@@ -208,9 +213,6 @@
                                 style="@style/textMinimumColor"
                                 android:text="Metascore"
                                 android:textSize="14sp"/>
-                            <TextView
-                                style="@style/textLittle"
-                                android:text="532,231 votes"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -236,6 +238,7 @@
                             android:layout_marginLeft="4dp">
 
                             <TextView
+                                android:id="@+id/awards"
                                 style="@style/textLittle"
                                 android:layout_marginLeft="5dp"
                                 android:text="Nominated for 3 Oscars\nAnother 44 wins\n82 nominations"/>
