@@ -2,4 +2,6 @@
     <string name="app_name">omdb</string>
     <string name="Plot">Sinopse</string>
     <string name="GoBuyMovieStuff">É fã desse filme? Vá às compras!</string>
+    <string name="searchHint">Nome do filme...</string>
+    <string name="Search">Buscar</string>
 </resources>
