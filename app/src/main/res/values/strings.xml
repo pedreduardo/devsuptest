@@ -9,4 +9,5 @@
     <string name="loadingMovieData">Carregando dados do filme...</string>
     <string name="movieNotFound">Oops! Filme não encontrado. :(</string>
     <string name="votes">votos</string>
+    <string name="verifyConnection">Conecte-se à Internet para fazer a busca.</string>
 </resources>

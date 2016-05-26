@@ -13,6 +13,7 @@ import dutest.omdb.R;
 import dutest.omdb.http.HttpGet;
 import dutest.omdb.http.OnFinishHttpTask;
 import dutest.omdb.model.json.Movie;
+import dutest.omdb.util.Util;
 import dutest.omdb.util.http.HttpUtil;
 
 /**
@@ -48,12 +49,13 @@ public class MovieSearch extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if(v == this.searchButton){
-            if(this.movieName.getText().toString().isEmpty()){
-                Toast.makeText(this, getResources().getString(R.string.InsertMovie),
-                        Toast.LENGTH_LONG).show();
-            }
-            else{
-                browseMovie();
+            if(Util.isOnlineWithToast(this.context)) {
+                if (this.movieName.getText().toString().isEmpty()) {
+                    Toast.makeText(this, getResources().getString(R.string.InsertMovie),
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    browseMovie();
+                }
             }
         }
     }

@@ -252,6 +252,7 @@
             </RelativeLayout>
 
             <Button
+                android:id="@+id/amazonButton"
                 android:layout_width="300dp"
                 android:layout_height="36dp"
                 android:text="@string/GoBuyMovieStuff"
