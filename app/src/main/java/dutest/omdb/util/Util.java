@@ -4,7 +4,11 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dutest.omdb.R;
+import dutest.omdb.model.json.Movie;
 
 /**
  * Created by Pedreduardo on 24/05/2016.
@@ -26,6 +30,15 @@ public class Util {
             return false;
         }
         return true;
+    }
+
+    public static List<Movie> findMovieByTitle(String movieTitle){
+        List<Movie> movies = new ArrayList<Movie>();
+        movies = Movie.find(Movie.class, "Title = ?", movieTitle);
+        if(movies == null || movies.isEmpty()){
+            return null;
+        }
+        return movies;
     }
 
 }

@@ -29,4 +29,16 @@
         android:src="@drawable/ic_magnify_white_24dp"
         android:elevation="3dp"/>
 
+
+    <Button
+        android:id="@+id/myMovies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:text="@string/seeMyMovies"
+        android:layout_marginBottom="20dp"
+        android:alpha="0.5"/>
+
 </RelativeLayout>

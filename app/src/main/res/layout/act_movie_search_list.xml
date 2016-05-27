@@ -1,0 +1,27 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorAccent"/>
+
+    <TextView
+        android:id="@+id/wrong"
+        style="@style/textLittle"
+        android:layout_centerInParent="true"/>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_below="@+id/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:divider="@color/colorDivider"
+        android:dividerHeight="1px">
+    </ListView>
+
+</RelativeLayout>

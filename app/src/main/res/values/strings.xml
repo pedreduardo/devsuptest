@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">omdb</string>
+    <string name="app_name">DevsUp Test</string>
     <string name="Plot">Sinopse</string>
     <string name="GoBuyMovieStuff">É fã desse filme? Vá às compras!</string>
     <string name="searchHint">Nome do filme...</string>
@@ -10,4 +10,7 @@
     <string name="movieNotFound">Oops! Filme não encontrado. :(</string>
     <string name="votes">votos</string>
     <string name="verifyConnection">Conecte-se à Internet para fazer a busca.</string>
+    <string name="seeMyMovies">Veja o que pesquisou até agora!</string>
+    <string name="noSearch">Você ainda não fez pesquisa alguma. :(</string>
+    <string name="MyMovies">Meus filmes</string>
 </resources>

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import dutest.omdb.R;
@@ -26,6 +27,7 @@ public class MovieSearch extends AppCompatActivity implements View.OnClickListen
     private FloatingActionButton searchButton;
     private ProgressDialog progressDialog;
     private Movie movie;
+    private Button myMovies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,8 @@ public class MovieSearch extends AppCompatActivity implements View.OnClickListen
         this.movieName = (EditText) findViewById(R.id.movieText);
         this.searchButton = (FloatingActionButton) findViewById(R.id.search);
         this.searchButton.setOnClickListener(this);
-
+        this.myMovies = (Button) findViewById(R.id.myMovies);
+        this.myMovies.setOnClickListener(this);
         this.progressDialog = new ProgressDialog(this);
         this.progressDialog.setMessage(getResources().getString(R.string.loadingMovieData));
     }
@@ -54,14 +57,18 @@ public class MovieSearch extends AppCompatActivity implements View.OnClickListen
                     Toast.makeText(this, getResources().getString(R.string.InsertMovie),
                             Toast.LENGTH_LONG).show();
                 } else {
-                    browseMovie();
+                    browseMovie(this.movieName.getText().toString());
                 }
             }
         }
+        else if(v == this.myMovies){
+            Intent it = new Intent(MovieSearch.this, MyMovies.class);
+            startActivity(it);
+        }
     }
 
-    public void browseMovie() {
-        String finalURL = HttpUtil.standardizeUrlTerm(this.movieName.getText().toString());
+    public void browseMovie(String movieName) {
+        String finalURL = HttpUtil.standardizeUrlTerm(movieName);
         new HttpGet(this, this.progressDialog, finalURL, Movie.class).execute();
     }
 
@@ -78,6 +85,12 @@ public class MovieSearch extends AppCompatActivity implements View.OnClickListen
             else{
                 Intent it = new Intent(MovieSearch.this, MovieProfile.class);
                 it.putExtra("movie", this.movie);
+
+
+                if(Util.findMovieByTitle(this.movie.getTitle()) == null){
+                    this.movie.save();
+                }
+
                 startActivity(it);
             }
         }

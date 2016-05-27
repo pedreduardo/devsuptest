@@ -1,13 +1,18 @@
 package dutest.omdb.model.json;
 
+import com.orm.SugarRecord;
+import com.orm.dsl.Ignore;
+
 import java.io.Serializable;
 
 /**
  * Created by Pedreduardo on 26/05/2016.
  */
-public class Movie implements Serializable {
+public class Movie extends SugarRecord implements Serializable {
 
+    @Ignore
     String Response;
+
     String Title;
     String Plot;
     String Poster;

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/movieTitle"
+            android:layout_gravity="center"
+            android:text="Nome do filme"
+            style="@style/text"
+            android:textStyle="bold"
+            android:layout_width="200dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp"
+            android:layout_alignParentLeft="true"/>
+
+        <TextView
+            android:id="@+id/moviePlot"
+            android:layout_gravity="center"
+            android:layout_below="@+id/movieTitle"
+            android:text="iusaiuashisahisahiusahiusahsasaiuhsaiuhsaiuhsa"
+            style="@style/textLittle"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_width="200dp"
+            android:layout_height="70dp"
+            android:layout_alignParentLeft="true"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/moviePoster"
+        android:layout_gravity="center"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>
