@@ -7,13 +7,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.google.common.collect.Lists;
-
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-
 import dutest.omdb.R;
 import dutest.omdb.adapter.MyMoviesAdapter;
 import dutest.omdb.model.json.Movie;
@@ -26,8 +22,8 @@ public class MyMovies extends AppCompatActivity {
     ListView lv;
     Context context;
     private Toolbar toolbar;
-    private ArrayList<Movie> myMovies;
-    private TextView noSeacrh;
+    private ArrayList<Movie> myMovies;  //Lista dos filmes pesquisados pelo usuário
+    private TextView noSeacrh;  //Texto de exibição quando não existir busca anterior.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +47,9 @@ public class MyMovies extends AppCompatActivity {
         this.noSeacrh =  (TextView) findViewById(R.id.wrong);
     }
 
+    /**
+     * Carrega a lista de filmes e exibe na ListView
+     */
     private void initList() {
 
         Iterator<Movie> moviesList = Movie.findAll(Movie.class);

@@ -46,7 +46,7 @@ public class HttpGet extends AsyncTask<Void, Void, String> {
             //Realiza a conexão
             this.conn.connect();
             //Obtém a resposta
-            this.response = HttpUtil.readResponse(this.conn.getHttpConn());                       //Get response (String)
+            this.response = HttpUtil.readResponse(this.conn.getHttpConn());
 
         } catch (IOException e) {
             e.printStackTrace();

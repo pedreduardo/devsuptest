@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -17,41 +16,39 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import dutest.omdb.R;
 import dutest.omdb.constant.Constant;
-import dutest.omdb.http.HttpGet;
 import dutest.omdb.http.OnFinishHttpTask;
 import dutest.omdb.model.json.Movie;
-import dutest.omdb.util.http.HttpUtil;
+import dutest.omdb.util.Util;
 import dutest.omdb.util.image.DownloadImageTask;
+import dutest.omdb.util.movie.MovieUtil;
 
 /**
  * Created by Pedreduardo on 25/05/2016.
  */
 public class MovieProfile extends AppCompatActivity implements View.OnClickListener, OnFinishHttpTask{
 
-    private Movie movie;
+    private Movie movie; // Filme do perfil
     private Context context;
     private AppBarLayout appBar;
     private CollapsingToolbarLayout collapsing;
     private Toolbar toolbar;
 
-    private ImageView bannerImage;
-    private ImageView posterImage;
-    private TextView year;
-    private TextView rated;
-    private TextView genre;
-    private TextView plot;
-    private TextView imdbRating;
-    private TextView imdbVotes;
-    private TextView metaScore;
-    private TextView awards;
-    private Button amazonButton;
+    private ImageView bannerImage;  //Imagem do banner (grande)
+    private ImageView posterImage;  //Imagem do poster (menor)
+    private TextView year;  //Ano do filme
+    private TextView rated; //Classificacao
+    private TextView genre; //Genero
+    private TextView plot;  //Sinopse
+    private TextView imdbRating;    //Nota no imdb
+    private TextView imdbVotes;     //Quantidade de votos no imdb
+    private TextView metaScore;     //Classificação de críticos em geral
+    private TextView awards;    //Prêmios
+    private Button amazonButton;    //Botão para ir à Amazon para compras de itens do filme
 
     private ProgressDialog progressDialog;
 
@@ -66,6 +63,9 @@ public class MovieProfile extends AppCompatActivity implements View.OnClickListe
         populateProfile();
     }
 
+    /**
+     * Inicialização das views da activity
+     */
     private void initComponents() {
         this.appBar = (AppBarLayout) findViewById(R.id.appBar);
         this.collapsing = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
@@ -82,18 +82,26 @@ public class MovieProfile extends AppCompatActivity implements View.OnClickListe
         this.awards = (TextView) findViewById(R.id.awards);
         this.amazonButton = (Button) findViewById(R.id.amazonButton);
 
+        //Toolbar
         setSupportActionBar(this.toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Voltar ao início
 
+        //ProgressDialog da pesquisa
         this.progressDialog = new ProgressDialog(this);
         this.progressDialog.setMessage(getResources().getString(R.string.loadingMovieData));
 
     }
 
+    /**
+     * Obtém objeto do filme pesquisado
+     */
     private void getExtras() {
             this.movie = (Movie) getIntent().getSerializableExtra("movie");
     }
 
+    /**
+     * Insere informações sobre o filme na tela (título, sinopse, imagem etc)
+     */
     private void populateProfile() {
 
         this.collapsing.setTitle(this.movie.getTitle());
@@ -112,10 +120,14 @@ public class MovieProfile extends AppCompatActivity implements View.OnClickListe
         this.amazonButton.setOnClickListener(this);
     }
 
+    /**
+     * Configuração do item de pesquisa de filmes na toolbar
+     * @param menu
+     * @return
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.movie_profile_menu, menu);
-
         MenuItem searchItem = menu.findItem(R.id.action_search);
 
         SearchManager searchManager = (SearchManager) MovieProfile.this.getSystemService(Context.SEARCH_SERVICE);
@@ -128,15 +140,14 @@ public class MovieProfile extends AppCompatActivity implements View.OnClickListe
             searchView.setSearchableInfo(searchManager.getSearchableInfo(MovieProfile.this.getComponentName()));
         }
 
-        EditText searchText = ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text));
-        searchText.setHintTextColor(ContextCompat.getColor(this.context, R.color.white));
-        searchText.setTextColor(ContextCompat.getColor(this.context, R.color.white));
-
+        //Título do filme pesquisado na toolbar
         SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
             public boolean onQueryTextChange(String newText) {return true; }
 
             public boolean onQueryTextSubmit(String query) {
-                browseMovie(query);
+                if(Util.isOnline(MovieProfile.this.context)) {
+                    MovieUtil.browseMovie(query, MovieProfile.this, MovieProfile.this.progressDialog);
+                }
                 return true;
             }
         };
@@ -150,18 +161,15 @@ public class MovieProfile extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == this.amazonButton){
-            String amazonSearch = Constant.AMAZON_SEARCH;
-            String query = this.movie.getTitle().replace(' ', '+');
-            amazonSearch += query + Constant.AM_DEFAULT_PARAMS;
+            if(Util.isOnline(this.context)) {
+                String amazonSearch = Constant.AMAZON_SEARCH;
+                String query = this.movie.getTitle().replace(' ', '+');
+                amazonSearch += query + Constant.AM_DEFAULT_PARAMS;
 
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(amazonSearch));
-            startActivity(browserIntent);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(amazonSearch));
+                startActivity(browserIntent);
+            }
         }
-    }
-
-    public void browseMovie(String movieName) {
-        String finalURL = HttpUtil.standardizeUrlTerm(movieName);
-        new HttpGet(this, this.progressDialog, finalURL, Movie.class).execute();
     }
 
     @Override
@@ -175,6 +183,16 @@ public class MovieProfile extends AppCompatActivity implements View.OnClickListe
                         Toast.LENGTH_LONG).show();
             }
             else{
+
+                if(MovieUtil.findMovieByTitle(movie.getTitle()) == null){
+                    movie.save();
+                }
+
+                /* O CollapsingLayout possui algum tipo de bug onde o título não
+                é atualizado normalmente. Ao pesquisar por um filme, todos os dados
+                eram atualizados, com exceção do título. Por isso uma nova chamada da activity.
+                 */
+
                 Intent it = new Intent(MovieProfile.this, MovieProfile.class);
                 it.putExtra("movie", this.movie);
                 finish();

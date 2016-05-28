@@ -12,26 +12,30 @@ import java.io.InputStream;
  * Created by Pedreduardo on 25/05/2016.
  */
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-    ImageView bmImage;
+    ImageView imageView;
 
     public DownloadImageTask(ImageView bmImage) {
-        this.bmImage = bmImage;
+        this.imageView = bmImage;
     }
 
+    /**
+     * Retorna a imagem a partir de uma URL
+     * @param urls
+     * @return
+     */
     protected Bitmap doInBackground(String... urls) {
-        String urldisplay = urls[0];
-        Bitmap mIcon11 = null;
+        String urlDisplay = urls[0];
+        Bitmap image = null;
         try {
-            InputStream in = new java.net.URL(urldisplay).openStream();
-            mIcon11 = BitmapFactory.decodeStream(in);
-        } catch (Exception e) {
-            Log.e("Error", e.getMessage());
+            InputStream in = new java.net.URL(urlDisplay).openStream();
+            image = BitmapFactory.decodeStream(in);
+        } catch (Exception e) {;
             e.printStackTrace();
         }
-        return mIcon11;
+        return image;
     }
 
     protected void onPostExecute(Bitmap result) {
-        bmImage.setImageBitmap(result);
+        imageView.setImageBitmap(result);
     }
 }

@@ -20,7 +20,7 @@ public class Util {
      * @param c
      * @return
      */
-    public static boolean isOnlineWithToast(Context c) {
+    public static boolean isOnline(Context c) {
         ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm.getActiveNetworkInfo() == null || !cm.getActiveNetworkInfo().isConnectedOrConnecting()) {
             String text = c.getResources().getString(R.string.verifyConnection);
@@ -31,14 +31,4 @@ public class Util {
         }
         return true;
     }
-
-    public static List<Movie> findMovieByTitle(String movieTitle){
-        List<Movie> movies = new ArrayList<Movie>();
-        movies = Movie.find(Movie.class, "Title = ?", movieTitle);
-        if(movies == null || movies.isEmpty()){
-            return null;
-        }
-        return movies;
-    }
-
 }
